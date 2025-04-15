@@ -235,6 +235,55 @@
                 text-align: center;
             }
         }
+
+        .nav-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1000;
+            border-radius: 4px;
+        }
+
+        .dropdown-content a {
+            color: var(--main-color);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: var(--light-gray);
+            color: var(--accent-color);
+        }
+
+        .show {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .dropdown-content {
+                position: fixed;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background: #fff;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            }
+
+            .dropdown-content a {
+                text-align: center;
+                padding: 15px;
+                border-bottom: 1px solid var(--border-color);
+            }
+        }
     </style>
 </head>
 <body>
@@ -249,13 +298,15 @@
         <div class="header-content">
             <a href="index.html" class="logo">Олжас Сулейменов</a>
             <nav>
-                <ul>
-                    <li><a href="index.html">Главная</a></li>
-                    <li><a href="books.html">Книги</a></li>
-                    <li><a href="poems.html">Стихи</a></li>
-                    <li><a href="about.html">Биография</a></li>
-                    <li><a href="contact.html">Контакты</a></li>
-                </ul>
+                <div class="nav-dropdown">
+                    <a href="index.html" onclick="toggleMenu(event)">Главная</a>
+                    <div class="dropdown-content" id="myDropdown">
+                        <a href="books.html">Книги</a>
+                        <a href="poems.html">Стихи</a>
+                        <a href="about.html">Биография</a>
+                        <a href="contact.html">Контакты</a>
+                    </div>
+                </div>
             </nav>
         </div>
     </header>
@@ -922,28 +973,23 @@
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const poemCards = document.querySelectorAll('.poem-card');
-            
-            poemCards.forEach(card => {
-                card.addEventListener('click', function() {
-                    const poemText = this.querySelector('.poem-text');
-                    const isActive = this.classList.contains('active');
-                    
-                    // Закрываем все открытые стихи
-                    poemCards.forEach(otherCard => {
-                        if (otherCard !== this) {
-                            otherCard.classList.remove('active');
-                            otherCard.querySelector('.poem-text').style.display = 'none';
-                        }
-                    });
+        function toggleMenu(event) {
+            event.preventDefault();
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
 
-                    // Переключаем текущий стих
-                    this.classList.toggle('active');
-                    poemText.style.display = isActive ? 'none' : 'block';
-                });
-            });
-        });
+        // Закрыть выпадающее меню при клике вне его
+        window.onclick = function(event) {
+            if (!event.target.matches('.nav-dropdown a')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
     </script>
 </body>
 </html> 
