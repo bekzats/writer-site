@@ -6,7 +6,7 @@
     <title>Олжас Сулейменов - Книги</title>
     <style>
         :root {
-            --main-color: #333;
+            --main-color: #000;
             --accent-color: #c4161c;
             --text-color: #333;
             --light-gray: #f8f8f8;
@@ -29,28 +29,71 @@
         .dropdown-content {
             display: none;
             position: absolute;
+            margin-top: 10px;
             background-color: #fff;
-            min-width: 160px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            padding: 10px 0;
             z-index: 1000;
-            border-radius: 4px;
-        }
-
-        .dropdown-content a {
-            color: var(--main-color);
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            transition: background-color 0.3s;
-        }
-
-        .dropdown-content a:hover {
-            background-color: var(--light-gray);
-            color: var(--accent-color);
         }
 
         .show {
             display: block;
+        }
+
+        .nav-dropdown > a {
+            font-family: 'Georgia', serif;
+            font-size: 24px;
+            font-weight: bold;
+            color: #000;
+            text-transform: uppercase;
+            background: #fff;
+            padding: 15px 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-dropdown > a:hover {
+            background: #f8f8f8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .dropdown-content a {
+            font-family: 'Georgia', serif;
+            font-size: 20px;
+            color: #000;
+            padding: 15px 25px;
+            border-left: 4px solid transparent;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f8f8f8;
+            border-left: 4px solid var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        @media (max-width: 768px) {
+            .nav-dropdown > a {
+                font-size: 28px;
+                padding: 20px 30px;
+                display: block;
+                text-align: center;
+                margin: 0 20px;
+            }
+
+            .dropdown-content {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                margin-top: 0;
+            }
         }
 
         header {
@@ -74,32 +117,14 @@
             color: var(--main-color);
             text-decoration: none;
         }
-
-        @media (max-width: 768px) {
-            .dropdown-content {
-                position: fixed;
-                top: 60px;
-                left: 0;
-                width: 100%;
-                background: #fff;
-                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            }
-
-            .dropdown-content a {
-                text-align: center;
-                padding: 15px;
-                border-bottom: 1px solid var(--border-color);
-            }
-        }
     </style>
 </head>
 <body>
     <header>
         <div class="header-content">
-            <a href="index.html" class="logo">Олжас Сулейменов</a>
             <nav>
                 <div class="nav-dropdown">
-                    <a href="index.html" onclick="toggleMenu(event)">Главная</a>
+                    <a href="index.html" onclick="toggleMenu(event)">ОЛЖАС СУЛЕЙМЕНОВ</a>
                     <div class="dropdown-content" id="myDropdown">
                         <a href="books.html">Книги</a>
                         <a href="poems.html">Стихи</a>
