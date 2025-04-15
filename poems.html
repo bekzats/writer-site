@@ -118,10 +118,12 @@
             border-radius: 8px;
             margin-bottom: 30px;
             transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
 
         .poem-card:hover {
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
         }
 
         .poem-card h3 {
@@ -133,17 +135,28 @@
             position: relative;
             background: var(--light-gray);
             border-radius: 8px 8px 0 0;
+            transition: all 0.3s ease;
+        }
+
+        .poem-card h3:hover {
+            color: var(--accent-color);
+            background: #fff;
         }
 
         .poem-card h3::after {
             content: '+';
             position: absolute;
             right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
             color: var(--accent-color);
+            font-size: 24px;
+            transition: transform 0.3s ease;
         }
 
         .poem-card.active h3::after {
             content: '−';
+            transform: translateY(-50%) rotate(180deg);
         }
 
         .poem-text {
@@ -154,6 +167,18 @@
             white-space: pre-wrap;
             font-family: 'Times New Roman', Times, serif;
             font-size: 18px;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .poem-text p {
@@ -169,6 +194,7 @@
 
         .poem-part {
             margin-bottom: 30px;
+            padding: 0 20px;
         }
 
         .poem-part h4 {
@@ -183,6 +209,7 @@
             font-style: italic;
             color: #666;
             margin: 0 0 20px 0;
+            padding: 0 20px;
         }
 
         .poem-date {
@@ -190,6 +217,7 @@
             font-style: italic;
             color: #666;
             margin: 20px 0 0 0;
+            padding: 0 20px;
         }
 
         .poem-ending {
@@ -1017,6 +1045,42 @@
                 }
             }
         }
+
+        // Добавляем обработчик для открытия/закрытия стихотворений
+        document.addEventListener('DOMContentLoaded', function() {
+            const poemCards = document.querySelectorAll('.poem-card h3');
+            
+            poemCards.forEach(function(header) {
+                header.addEventListener('click', function() {
+                    const card = this.parentElement;
+                    const poemText = card.querySelector('.poem-text');
+                    
+                    // Если стихотворение уже открыто, закрываем его
+                    if (card.classList.contains('active')) {
+                        card.classList.remove('active');
+                        poemText.style.display = 'none';
+                        
+                        // Плавно прокручиваем к заголовку стихотворения
+                        header.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    } else {
+                        // Закрываем все открытые стихотворения
+                        document.querySelectorAll('.poem-card').forEach(function(otherCard) {
+                            otherCard.classList.remove('active');
+                            otherCard.querySelector('.poem-text').style.display = 'none';
+                        });
+                        
+                        // Открываем выбранное стихотворение
+                        card.classList.add('active');
+                        poemText.style.display = 'block';
+                        
+                        // Плавно прокручиваем к началу стихотворения
+                        setTimeout(() => {
+                            header.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }, 100);
+                    }
+                });
+            });
+        });
     </script>
 </body>
 </html> 
