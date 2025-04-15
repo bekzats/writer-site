@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Олжас Сулейменов - Книги</title>
+    <link rel="stylesheet" href="css/style.css">
     <style>
         :root {
             --main-color: #000;
@@ -120,15 +121,22 @@
     </style>
 </head>
 <body>
+    <div class="top-bar">
+        <div class="language-selector">
+            <a href="?lang=ru">Русский</a>
+            <a href="?lang=kz">Қазақ</a>
+        </div>
+    </div>
+
     <header>
         <div class="header-content">
             <nav>
                 <div class="nav-dropdown">
-                    <a href="index.html" onclick="toggleMenu(event)">ОЛЖАС СУЛЕЙМЕНОВ</a>
+                    <a href="index.html" onclick="toggleMenu(event)">Главная</a>
                     <div class="dropdown-content" id="myDropdown">
                         <a href="books.html">Книги</a>
                         <a href="poems.html">Стихи</a>
-                        <a href="about.html">Биография</a>
+                        <a href="about.html">Обо мне</a>
                         <a href="contact.html">Контакты</a>
                     </div>
                 </div>

@@ -5,18 +5,116 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Олжас Сулейменов - Контакты</title>
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        :root {
+            --main-color: #000;
+            --accent-color: #c4161c;
+            --text-color: #333;
+            --light-gray: #f8f8f8;
+            --border-color: #ddd;
+        }
+
+        /* Добавляем базовые стили для nav-dropdown */
+        .nav-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Добавляем стиль для скрытого меню */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            margin-top: 10px;
+            background-color: #fff;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            padding: 10px 0;
+            z-index: 1000;
+        }
+
+        /* Стиль для открытого меню */
+        .show {
+            display: block;
+        }
+
+        .nav-dropdown > a {
+            font-family: 'Georgia', serif;
+            font-size: 24px;
+            font-weight: bold;
+            color: #000;
+            text-transform: uppercase;
+            background: #fff;
+            padding: 15px 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-dropdown > a:hover {
+            background: #f8f8f8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .dropdown-content a {
+            font-family: 'Georgia', serif;
+            font-size: 20px;
+            color: #000;
+            padding: 15px 25px;
+            border-left: 4px solid transparent;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f8f8f8;
+            border-left: 4px solid var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        @media (max-width: 768px) {
+            .nav-dropdown > a {
+                font-size: 28px;
+                padding: 20px 30px;
+                display: block;
+                text-align: center;
+                margin: 0 20px;
+            }
+
+            .dropdown-content {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                margin-top: 0;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="top-bar">
+        <div class="language-selector">
+            <a href="?lang=ru">Русский</a>
+            <a href="?lang=kz">Қазақ</a>
+        </div>
+    </div>
+
     <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Главная</a></li>
-                <li><a href="books.html">Книги</a></li>
-                <li><a href="poems.html">Стихи</a></li>
-                <li><a href="about.html">Обо мне</a></li>
-                <li><a href="contact.html">Контакты</a></li>
-            </ul>
-        </nav>
+        <div class="header-content">
+            <nav>
+                <div class="nav-dropdown">
+                    <a href="index.html" onclick="toggleMenu(event)">Главная</a>
+                    <div class="dropdown-content" id="myDropdown">
+                        <a href="books.html">Книги</a>
+                        <a href="poems.html">Стихи</a>
+                        <a href="about.html">Обо мне</a>
+                        <a href="contact.html">Контакты</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
     </header>
 
     <main>
@@ -58,5 +156,25 @@
         <p>Контакты: +7 778 453 7971</p>
         <p>&copy; 2024 Все права защищены</p>
     </footer>
+
+    <script>
+        function toggleMenu(event) {
+            event.preventDefault();
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        // Закрыть выпадающее меню при клике вне его
+        window.onclick = function(event) {
+            if (!event.target.matches('.nav-dropdown a')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
 </body>
 </html> 
